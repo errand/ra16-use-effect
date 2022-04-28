@@ -1,9 +1,20 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useState} from "react";
 
-export default function List() {
-  const [list ,setList] = useState();
+export default function List({onClick: handleClick}) {
+
+  const [list, setList] = useState([]);
 
   useEffect(() => {
-    fetch('https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/hooks-context/use-effect/data/users.json')
-  })
+    fetch(`${process.env.REACT_APP_LIST}/users.json`)
+      .then(response => response.json())
+      .then(data => setList(data))
+  }, [])
+
+  const listItems = list.map(item => <div key={item.id} onClick={() => handleClick(item.id)}>{item.name}</div>)
+
+  return (
+    <div className={'list'}>
+      {listItems}
+    </div>
+  );
 }
