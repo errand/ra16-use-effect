@@ -4,19 +4,17 @@ import Details from './components/Details'
 import {useState} from 'react'
 
 function App() {
-  const [id, setId] = useState(null)
-  const [loaded, setLoaded] = useState(false)
+  const [userId, setUserId] = useState(0)
 
   const handleClick = id => {
-    setId(id)
-    setLoaded(prevState => !prevState)
+    setUserId(id)
   }
 
   return (
-    <>
-        <List onClick={handleClick} />
-        {loaded && <Details id={id} />}
-    </>
+    <div className={'wrapper'}>
+        <List userId={userId} onClick={handleClick} />
+        {userId !== 0 && <Details userId={userId} />}
+    </div>
   );
 }
 
